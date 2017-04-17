@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -20,6 +21,7 @@ public abstract class MVPBaseActivity<V extends BaseView,T extends BasePresenter
         super.onCreate(savedInstanceState);
         mPresenter= getInstance(this,1);
         mPresenter.attachView((V) this);
+        setContentView(getLayoutResId());
     }
 
     @Override
@@ -48,4 +50,31 @@ public abstract class MVPBaseActivity<V extends BaseView,T extends BasePresenter
         }
         return null;
     }
+
+
+
+
+    /**
+     * 获取当前fragment对应的布局id
+     * @return
+     */
+    public abstract int getLayoutResId() ;
+
+    /**
+     * 初始化view:
+     * 查找控件
+     * @param view
+     */
+    public abstract void initView(View view) ;
+
+    /**
+     * 初始化监听
+     */
+    public abstract void initListener() ;
+
+    /**
+     * 初始化数据
+     * 给控件设置内容
+     */
+    public abstract void initData() ;
 }
