@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -22,6 +21,9 @@ public abstract class MVPBaseActivity<V extends BaseView,T extends BasePresenter
         mPresenter= getInstance(this,1);
         mPresenter.attachView((V) this);
         setContentView(getLayoutResId());
+         initView();
+        initListener();
+        initData();
     }
 
     @Override
@@ -63,9 +65,9 @@ public abstract class MVPBaseActivity<V extends BaseView,T extends BasePresenter
     /**
      * 初始化view:
      * 查找控件
-     * @param view
+     * @param
      */
-    public abstract void initView(View view) ;
+    public abstract void initView() ;
 
     /**
      * 初始化监听

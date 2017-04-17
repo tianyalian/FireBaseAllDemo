@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.firebasealldemo.MainActivity;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,11 +41,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     }
 
     @Override
-    public void initView(View view) {
-         et_account = (EditText) findViewById(R.id.editText);
-         et_pwd = (EditText) findViewById(R.id.editText2);
-         login = (Button) findViewById(R.id.login);
-         regist = (Button) findViewById(R.id.editText);
+    public void initView() {
+        et_account = (EditText) findViewById(R.id.editText);
+        et_pwd = (EditText) findViewById(R.id.editText2);
+        login = (Button) findViewById(R.id.login);
+        regist = (Button) findViewById(R.id.regist);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    startActivity(getIntent().setClass(LoginActivity.this, MainActivity.class));
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -75,14 +77,26 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.regist:
+                submit(false);
+                break;
 
+            case R.id.login:
+                submit(true);
+                break;
+        }
     }
 
-    public void submit() {
+    public void submit(boolean isLogin) {
         String account = et_account.getText().toString().toString();
         String pwd = et_pwd.getText().toString().toString();
         if (!TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd)) {
-            registCount(account, pwd);
+            if (isLogin) {
+                loginAccount(account, pwd);
+            } else {
+                registCount(account, pwd);
+            }
         } else {
             Toast.makeText(LoginActivity.this, "请检查账号和密码", Toast.LENGTH_SHORT);
         }
@@ -103,7 +117,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         }
     }
 
-    public void registCount(String email,String password){
+    public void registCount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -123,7 +137,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 });
     }
 
-    public void loginAccount(String email,String password){
+    public void loginAccount(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -142,5 +156,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         // ...
                     }
                 });
-    };
+    }
+
+    ;
 }
