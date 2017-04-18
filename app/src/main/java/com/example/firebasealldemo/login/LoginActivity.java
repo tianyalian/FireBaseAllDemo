@@ -137,6 +137,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 });
     }
 
+
     public void loginAccount(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
