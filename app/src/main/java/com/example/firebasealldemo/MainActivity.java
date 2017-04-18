@@ -6,17 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
 import com.example.firebasealldemo.fragment.message.MessageFragment;
 import com.example.firebasealldemo.fragment.onlinedb.OnlineDbFragment;
+import com.example.firebasealldemo.view.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ChatFragment chat_fragment;
     private  MessageFragment message_fragment;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private FragmentManager supportFragmentManager;
     private Toolbar toolbar;
+    private CircleImageView civ_user_head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +71,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout
-                , toolbar, R.string.open_draw, R.string.close_draw);
+                , null, R.string.open_draw, R.string.close_draw);
         actionBarDrawerToggle.syncState();
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
+        civ_user_head = (CircleImageView) findViewById(R.id.civ_user_head);
+        civ_user_head.setOnClickListener(this);
         chat_fragment = new ChatFragment();
         onlinedb_fragment = new OnlineDbFragment();
         message_fragment = new MessageFragment();
@@ -92,4 +97,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.civ_user_head:
+                Toast.makeText(MainActivity.this, "哎呀!", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
 }

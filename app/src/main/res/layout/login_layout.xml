@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Name gmail邮箱"
+        android:text="ake747327606@gmail.com"
         android:layout_marginBottom="84dp"
         app:layout_constraintBottom_toTopOf="@+id/editText2"
         app:layout_constraintLeft_toLeftOf="parent"

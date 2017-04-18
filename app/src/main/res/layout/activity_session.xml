@@ -100,12 +100,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible">
 
-                <!--表情贴图区-->
-                <com.lqr.emoji.EmoticonPickerView
-                    android:id="@+id/epv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+
 
                 <!--功能区-->
                 <LinearLayout
