@@ -134,7 +134,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
     }
