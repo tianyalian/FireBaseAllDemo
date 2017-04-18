@@ -18,6 +18,12 @@
         android:gravity="center"
         android:background="@drawable/img_file_receive"
         android:text="妖妖灵" />
+    <com.example.firebasealldemo.view.CircleImageView
+        android:id="@+id/iv_send"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentRight="true"
+        android:layout_height="60dp"
+        android:layout_width="60dp" />
     <TextView
         android:id="@+id/textSend"
         android:layout_width="wrap_content"
@@ -28,12 +34,6 @@
         android:maxWidth="230dp"
         android:text="黄河黄河我是长江黄" />
 
-    <com.example.firebasealldemo.view.CircleImageView
-        android:id="@+id/iv_send"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignParentRight="true"
-        android:layout_height="60dp"
-        android:layout_width="60dp" />
 
 
 </RelativeLayout>
