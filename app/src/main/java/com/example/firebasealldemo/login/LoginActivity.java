@@ -133,7 +133,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                             Toast.makeText(LoginActivity.this, "创建账号失败",
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
     }
