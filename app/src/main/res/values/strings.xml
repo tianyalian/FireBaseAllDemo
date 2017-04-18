@@ -6,4 +6,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_draw">侧滑打开</string>
+    <string name="close_draw">侧滑关闭</string>
 </resources>

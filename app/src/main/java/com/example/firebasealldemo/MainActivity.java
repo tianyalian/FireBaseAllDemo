@@ -1,10 +1,15 @@
 package com.example.firebasealldemo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     };
     private FragmentManager supportFragmentManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout
+                , toolbar, R.string.open_draw, R.string.close_draw);
+        actionBarDrawerToggle.syncState();
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
         chat_fragment = new ChatFragment();
         onlinedb_fragment = new OnlineDbFragment();
         message_fragment = new MessageFragment();
