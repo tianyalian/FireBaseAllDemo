@@ -157,6 +157,4 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                     }
                 });
     }
-
-    ;
 }
