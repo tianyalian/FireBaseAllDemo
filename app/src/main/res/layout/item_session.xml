@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.firebasealldemo.view.CircleImageView
+        android:id="@+id/iv_receive"
+        android:src="@mipmap/ic_launcher"
+        android:layout_height="60dp"
+        android:layout_width="60dp" />
+
+    <TextView
+        android:id="@+id/textReceive"
+        android:layout_toRightOf="@+id/iv_receive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="230dp"
+        android:gravity="center"
+        android:background="@drawable/img_file_receive"
+        android:text="妖妖灵" />
+    <TextView
+        android:id="@+id/textSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/iv_send"
+        android:background="@drawable/img_bubble_send"
+        android:gravity="center"
+        android:maxWidth="230dp"
+        android:text="黄河黄河我是长江黄" />
+
+    <com.example.firebasealldemo.view.CircleImageView
+        android:id="@+id/iv_send"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentRight="true"
+        android:layout_height="60dp"
+        android:layout_width="60dp" />
+
+
+</RelativeLayout>

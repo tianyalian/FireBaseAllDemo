@@ -1,7 +1,5 @@
 package com.example.firebasealldemo.fragment.chat;
 
-import android.content.Context;
-
 import com.example.firebasealldemo.mvp.BasePresenter;
 import com.example.firebasealldemo.mvp.BaseView;
 
@@ -16,6 +14,6 @@ public class ChatContract {
     }
 
     interface  Presenter extends BasePresenter<View> {
-        
+       public void  initPageView(android.view.View view);
     }
 }

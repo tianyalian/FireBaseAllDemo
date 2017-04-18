@@ -15,17 +15,17 @@ public class ChatFragment extends MVPBaseFragment<ChatContract.View, ChatPresent
 
     @Override
     public int getLayoutResId() {
-        return R.layout.chat_fragment;
+        return R.layout.activity_session;
     }
 
     @Override
     public void initView(View view) {
-
+        mPresenter.initPageView(view);
     }
 
     @Override
     public void initListener() {
-
+        mPresenter.initListener();
     }
 
     @Override
