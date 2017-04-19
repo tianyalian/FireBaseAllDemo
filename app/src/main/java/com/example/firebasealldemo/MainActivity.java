@@ -6,14 +6,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
 import com.example.firebasealldemo.fragment.message.MessageFragment;
@@ -26,44 +25,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private ChatFragment chat_fragment;
     private  MessageFragment message_fragment;
     private  OnlineDbFragment onlinedb_fragment;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    supportFragmentManager.beginTransaction()
-                            .hide(chat_fragment)
-                            .hide(onlinedb_fragment)
-                            .hide(message_fragment)
-                            .show(message_fragment)
-                            .commit();
-
-                    return true;
-                case R.id.navigation_dashboard:
-                    supportFragmentManager.beginTransaction()
-                            .hide(message_fragment)
-                            .hide(onlinedb_fragment)
-                            .hide(chat_fragment)
-                            .show(chat_fragment)
-                            .commit();
-                    return true;
-                case R.id.navigation_notifications:
-                    supportFragmentManager.beginTransaction()
-                            .hide(message_fragment)
-                            .hide(chat_fragment)
-                            .hide(onlinedb_fragment)
-                            .show(onlinedb_fragment)
-                            .commit();
-                    return true;
-            }
-            return false;
-        }
-
-    };
-
     Uri uri = Uri.parse("content://photo");
     ContentObserver observer = new ContentObserver(new Handler()) {
         @Override
@@ -73,38 +34,26 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
     };
 
-    /**
+   /**
      * 上传图片
      */
     private void uploadPic() {
-
+        Toast.makeText(this, "我要传图 了", Toast.LENGTH_SHORT).show();
     }
 
     private FragmentManager supportFragmentManager;
     private Toolbar toolbar;
     private CircleImageView civ_user_head;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        initView();
-//    }
-
-    @Override
+   @Override
     public int getLayoutResId() {
         return R.layout.activity_main;
     }
 
     @Override
     public void initView() {
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
+        getContentResolver().registerContentObserver(uri, true, observer);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout
                 , null, R.string.open_draw, R.string.close_draw);
@@ -117,6 +66,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         onlinedb_fragment = new OnlineDbFragment();
         message_fragment = new MessageFragment();
         supportFragmentManager = getSupportFragmentManager();
+        ItemSelectListener selectListener =new ItemSelectListener(supportFragmentManager,
+                chat_fragment,message_fragment,onlinedb_fragment );
+        navigation.setOnNavigationItemSelectedListener(selectListener);
         supportFragmentManager.beginTransaction().
                 add(R.id.content, chat_fragment)
                 .add(R.id.content, message_fragment)
@@ -125,7 +77,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 .hide(chat_fragment)
                 .hide(onlinedb_fragment)
                 .commit();
-
     }
 
     @Override
@@ -152,5 +103,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mPresenter.onMyActivityResult(MainActivity.this,requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getContentResolver().unregisterContentObserver(observer);
     }
 }
