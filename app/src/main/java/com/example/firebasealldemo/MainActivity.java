@@ -89,7 +89,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     }
 
-    private final int SELECT_PHOTO = 11;
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
