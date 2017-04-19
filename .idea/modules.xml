@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FireBaseAllDemo.iml" filepath="$PROJECT_DIR$/FireBaseAllDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-bither-compress/lib-bither-compress.iml" filepath="$PROJECT_DIR$/lib-bither-compress/lib-bither-compress.iml" />
     </modules>
   </component>
 </project>
