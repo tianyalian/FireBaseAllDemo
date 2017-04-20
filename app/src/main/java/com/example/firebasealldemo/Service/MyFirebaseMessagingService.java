@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.firebasealldemo.MainActivity;
+import com.example.firebasealldemo.activity.MainActivity;
 import com.example.firebasealldemo.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

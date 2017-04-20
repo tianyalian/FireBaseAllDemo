@@ -1,10 +1,11 @@
-package com.example.firebasealldemo;
+package com.example.firebasealldemo.listener;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 
+import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
 import com.example.firebasealldemo.fragment.message.MessageFragment;
 import com.example.firebasealldemo.fragment.onlinedb.OnlineDbFragment;

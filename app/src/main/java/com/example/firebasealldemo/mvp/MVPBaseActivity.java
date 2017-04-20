@@ -15,13 +15,15 @@ import java.lang.reflect.ParameterizedType;
 
 public abstract class MVPBaseActivity<V extends BaseView,T extends BasePresenterImpl<V>> extends AppCompatActivity implements BaseView{
     public T mPresenter;
+    public Context ctx;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter= getInstance(this,1);
         mPresenter.attachView((V) this);
+        ctx=this;
         setContentView(getLayoutResId());
-         initView();
+        initView();
         initListener();
         initData();
     }

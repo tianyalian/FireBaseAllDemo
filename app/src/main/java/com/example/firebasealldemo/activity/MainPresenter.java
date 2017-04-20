@@ -1,11 +1,14 @@
-package com.example.firebasealldemo;
+package com.example.firebasealldemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.widget.ImageView;
 
+import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.mvp.BasePresenterImpl;
+import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
 import com.yanzhenjie.album.Album;
 
 import net.bither.util.NativeUtil;
@@ -41,5 +44,11 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
                 , count                                                // 指定选择数量。
                 , ContextCompat.getColor(context, R.color.colorPrimary)        // 指定Toolbar的颜色。
                 , ContextCompat.getColor(context, R.color.colorPrimaryDark));
+    }
+
+
+    @Override
+    public void reFreshHeader(String url, Context context, ImageView imageView) {
+        GlideImageLoader.getInstance(context).displayImage(url,imageView);
     }
 }

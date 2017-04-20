@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.firebasealldemo.MainActivity;
+import com.example.firebasealldemo.activity.MainActivity;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

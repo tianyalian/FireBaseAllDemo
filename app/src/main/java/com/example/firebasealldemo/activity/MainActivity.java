@@ -1,10 +1,9 @@
-package com.example.firebasealldemo;
+package com.example.firebasealldemo.activity;
 
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -14,11 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
 import com.example.firebasealldemo.fragment.message.MessageFragment;
 import com.example.firebasealldemo.fragment.onlinedb.OnlineDbFragment;
+import com.example.firebasealldemo.listener.ItemSelectListener;
+import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
+import com.example.firebasealldemo.utils.HttpUtil;
 import com.example.firebasealldemo.view.CircleImageView;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements View.OnClickListener,MainContract.View {
 
@@ -38,7 +44,21 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 上传图片
      */
     private void uploadPic() {
-        Toast.makeText(this, "我要传图 了", Toast.LENGTH_SHORT).show();
+        HttpUtil.getInstance()
+                .upLoadFile("")
+                .setUpLoadListener(new UploadListenerImpl() {
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(MainActivity.this, "Upload IMG Failed,Try Again!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                mPresenter.reFreshHeader(taskSnapshot.getDownloadUrl().toString(),ctx,civ_user_head);
+            }
+        });
+
+
     }
 
     private FragmentManager supportFragmentManager;
@@ -86,6 +106,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void initData() {
+        StorageReference storageRef = HttpUtil.getInstance().getStorageRef(Constants.header_refence);
+        HttpUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
+            @Override
+            public void onSuccess(Uri uri) {
+                super.onSuccess(uri);
+                 mPresenter.reFreshHeader(uri.toString(),ctx,civ_user_head);
+            }
+        });
 
     }
 
@@ -97,7 +125,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 break;
         }
     }
-    private String  base_path = Environment.getExternalStorageDirectory().getPath()+"/";
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
