@@ -32,8 +32,6 @@
      
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- Optional. Required for location feature -->
@@ -42,6 +40,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <!-- baidumap -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -51,16 +50,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name">
-
-        </activity>
+            android:label="@string/app_name"></activity>
 
         <service android:name=".Service.AppFireBaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".Service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -74,8 +70,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yanzhenjie.album.AlbumActivity"/>
-
+        <activity android:name="com.yanzhenjie.album.AlbumActivity" />
+        <activity android:name=".activity.SettingUserInfo"></activity>
     </application>
 
 </manifest>

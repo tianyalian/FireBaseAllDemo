@@ -88,7 +88,7 @@ public class HttpUtil {
 
     public  static  HttpUtil getInstance() {
         if (httpUtil == null) {
-            synchronized ("") {
+            synchronized ("1") {
                 if (httpUtil == null) {
                     httpUtil = new HttpUtil();
                     //访问存储段的第一步是创建一个 FirebaseStorage 实例

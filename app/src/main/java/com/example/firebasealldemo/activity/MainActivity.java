@@ -1,17 +1,13 @@
 package com.example.firebasealldemo.activity;
 
-import android.content.Intent;
-import android.database.ContentObserver;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.firebasealldemo.Constants;
 import com.example.firebasealldemo.R;
@@ -24,42 +20,14 @@ import com.example.firebasealldemo.mvp.MVPBaseActivity;
 import com.example.firebasealldemo.utils.HttpUtil;
 import com.example.firebasealldemo.view.CircleImageView;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements View.OnClickListener,MainContract.View {
 
     private ChatFragment chat_fragment;
     private  MessageFragment message_fragment;
     private  OnlineDbFragment onlinedb_fragment;
-    Uri uri = Uri.parse("content://photo");
-    ContentObserver observer = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            uploadPic();
-        }
-    };
-
-   /**
-     * 上传图片
-     */
-    private void uploadPic() {
-        HttpUtil.getInstance()
-                .upLoadFile("")
-                .setUpLoadListener(new UploadListenerImpl() {
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(MainActivity.this, "Upload IMG Failed,Try Again!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                mPresenter.reFreshHeader(taskSnapshot.getDownloadUrl().toString(),ctx,civ_user_head);
-            }
-        });
 
 
-    }
 
     private FragmentManager supportFragmentManager;
     private Toolbar toolbar;
@@ -72,7 +40,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void initView() {
-        getContentResolver().registerContentObserver(uri, true, observer);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.dl_left);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout
@@ -114,27 +82,18 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                  mPresenter.reFreshHeader(uri.toString(),ctx,civ_user_head);
             }
         });
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.civ_user_head:
-                mPresenter.selectPhoto(MainActivity.this, 1, 22);
+//                mPresenter.selectPhoto(MainActivity.this, 1, 22);
                 break;
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mPresenter.onMyActivityResult(MainActivity.this,requestCode, resultCode, data);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getContentResolver().unregisterContentObserver(observer);
-    }
+
+
 }

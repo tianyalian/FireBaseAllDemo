@@ -9,7 +9,10 @@ import android.os.Environment;
 public class Constants {
     public static final String ROOT_gs = "gs://fir-alldemo-6e7e0.appspot.com"
              , root_sdCard = Environment.getExternalStorageDirectory().getPath()+"/"
-            , header_refence = "imaes/ake_header.jpg"
+            , header_refence = "imaes/ake_header.jpg",
+             realTimeDb_refence = "fir-alldemo-6e7e0",
+            Users="users"
             ,header_compressed= root_sdCard +"0.jpg";
+
 
 }
