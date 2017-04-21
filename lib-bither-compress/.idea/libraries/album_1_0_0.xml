@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="album-1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/185b86900c0344e4157e61ca07c6b2f17a3441fc/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/185b86900c0344e4157e61ca07c6b2f17a3441fc/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yanzhenjie/album/1.0.0/b2a6c3b0d245b5f197de4208aa94075e8a2d6b3e/album-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
