@@ -40,7 +40,7 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
     @Override
     public void selectPhoto(Context context, int count, int requestCode) {
         MyrequestCode = requestCode;
-        Album.startAlbum((MainActivity)context, requestCode
+        Album.startAlbum((SettingUserInfo)context, requestCode
                 , count                                                // 指定选择数量。
                 , ContextCompat.getColor(context, R.color.colorPrimary)        // 指定Toolbar的颜色。
                 , ContextCompat.getColor(context, R.color.colorPrimaryDark));

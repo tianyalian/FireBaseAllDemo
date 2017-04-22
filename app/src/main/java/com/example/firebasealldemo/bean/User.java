@@ -5,6 +5,26 @@ package com.example.firebasealldemo.bean;
  */
 
 public class User {
+    public User() {
+    }
+
+    public User(String id, String createTime, String level, String nick,
+                boolean isOnline, String birthday, String cellphoneNumber,
+                String emailAddress, String name, String picture,
+                String address, String[] friends) {
+        this.id = id;
+        this.createTime = createTime;
+        this.level = level;
+        this.nick = nick;
+        this.isOnline = isOnline;
+        this.birthday = birthday;
+        this.cellphoneNumber = cellphoneNumber;
+        this.emailAddress = emailAddress;
+        this.name = name;
+        this.picture = picture;
+        this.address = address;
+        this.friends = friends;
+    }
 
     /**
      * id : 00000000-0000-0000-0000-000000000000

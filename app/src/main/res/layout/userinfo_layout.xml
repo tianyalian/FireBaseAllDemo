@@ -133,5 +133,8 @@
         android:layout_marginBottom="16dp"
         android:text="submit"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="270dp" />
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="26dp" />
 </android.support.constraint.ConstraintLayout>

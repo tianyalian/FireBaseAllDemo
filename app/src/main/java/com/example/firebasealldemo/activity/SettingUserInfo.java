@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.firebasealldemo.Constants;
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.utils.HttpUtil;
+import com.example.firebasealldemo.utils.RealTimeDb;
 import com.google.firebase.storage.UploadTask;
 
 public class SettingUserInfo extends AppCompatActivity implements View.OnClickListener {
@@ -108,14 +111,26 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        // TODO validate success, do something
-        uploadData();
+        User user = new User();
+        user.id = Constants.UserID;
+        user.address = addressString;
+        user.name = nameString;
+        user.nick = nickString;
+        user.birthday = birthdayString;
+        user.cellphoneNumber = cellphoneNumberString;
+        user.emailAddress = emailAddressString;
+        user.level = "1";
+        user.friends = new String[]{"甜甜", "安安"};
+
+
+
+        uploadData(Constants.UserID, user);
 
     }
 
     //上传用户数据
-    private void uploadData() {
-
+    private void uploadData(String userid,User user) {
+        RealTimeDb.getInstance(SettingUserInfo.this).savaUserInfo(userid, user);
     }
 
     @Override
@@ -143,7 +158,7 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
      */
     private void uploadPic() {
         HttpUtil.getInstance()
-                .upLoadFile("")
+                .upLoadFile(Constants.header_refence)
                 .setUpLoadListener(new UploadListenerImpl() {
                     @Override
                     public void onFailure(Exception e) {
@@ -152,6 +167,7 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
 
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(SettingUserInfo.this, "Upload Success!", Toast.LENGTH_SHORT).show();
                         mainPresenter.reFreshHeader(taskSnapshot.getDownloadUrl().toString(), ctx,imageView);
                     }
                 });

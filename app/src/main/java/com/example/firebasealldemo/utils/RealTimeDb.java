@@ -42,6 +42,18 @@ public class RealTimeDb {
 
     public RealTimeDb savaUserInfo(String userid,User user) {
         dbRef.child(userid).setValue(user);
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User value = dataSnapshot.getValue(User.class);
+                Toast.makeText(ctx, ""+value.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return realTimeDb;
     }
 

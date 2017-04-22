@@ -88,7 +88,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.civ_user_head:
-//                mPresenter.selectPhoto(MainActivity.this, 1, 22);
+                startActivity(getIntent().setClass(MainActivity.this,SettingUserInfo.class));
                 break;
         }
     }
