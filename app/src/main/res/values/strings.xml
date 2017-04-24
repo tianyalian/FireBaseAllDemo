@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">FireBaseAllDemo</string>
-    <string name="title_home">MsgStore</string>
-    <string name="title_dashboard">Chat</string>
-    <string name="title_notifications">OnlineDb</string>
+    <string name="title_home">ChatList</string>
+    <string name="title_dashboard">Friends</string>
+    <string name="title_notifications">Test</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

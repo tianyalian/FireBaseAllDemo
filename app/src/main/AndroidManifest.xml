@@ -72,6 +72,7 @@
         </activity>
         <activity android:name="com.yanzhenjie.album.AlbumActivity" />
         <activity android:name=".activity.SettingUserInfo"></activity>
+        <activity android:name=".activity.session.SessionActivity"></activity>
     </application>
 
 </manifest>
