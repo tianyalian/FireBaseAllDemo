@@ -4,6 +4,7 @@ package com.example.firebasealldemo.fragment.message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.firebasealldemo.R;
@@ -21,6 +22,8 @@ import static android.content.ContentValues.TAG;
 public class MessageFragment extends MVPBaseFragment<MessageContract.View, MessagePresenter> implements MessageContract.View, View.OnClickListener {
 
     private Button btn,test;
+    private EditText name;
+
 
     @Override
     public int getLayoutResId() {
@@ -31,6 +34,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
     public void initView(View view) {
         btn = (Button) view.findViewById(R.id.button2);
         test = (Button) view.findViewById(R.id.button3);
+        name = (EditText) view.findViewById(R.id.etname);
         test.setOnClickListener(this);
         btn.setOnClickListener(this);
     }
@@ -55,7 +59,9 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
             case R.id.button3:
                 RealTimeDb instance = RealTimeDb.getInstance(context);
-                instance.sendStingTodb("");
+                String s = name.getText().toString();
+                instance.updataSession(s, ")");
+
                 break;
         }
     }

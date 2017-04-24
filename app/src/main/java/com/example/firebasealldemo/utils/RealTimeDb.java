@@ -4,12 +4,16 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by seeker on 2017/4/21.
@@ -19,6 +23,7 @@ public class RealTimeDb {
      Context ctx;
     private static RealTimeDb realTimeDb;
     public final DatabaseReference dbRef;
+    private final FirebaseDatabase database;
 
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -37,9 +42,10 @@ public class RealTimeDb {
         }
     };
 
+
     private RealTimeDb(Context ctx) {
         this.ctx = ctx;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         dbRef = database.getReference(Constants.realTimeDb_refence).child(Constants.Users);
 
    }
@@ -56,8 +62,8 @@ public class RealTimeDb {
     }
 
 
+    //测试存储数据使用
     public void sendStingTodb(String content) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference message  = database.getReference("message");
         message.setValue("hellow Firebase db");
         message.addValueEventListener(new ValueEventListener() {
@@ -92,8 +98,7 @@ public class RealTimeDb {
      * @return
      */
     public DatabaseReference getUserRef(String userid) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference("users").child(userid);
+        DatabaseReference dbRef = database.getReference(Constants.Users).child(userid);
         dbRef.addValueEventListener(valueEventListener);
         return dbRef;
     }
@@ -118,6 +123,53 @@ public class RealTimeDb {
     public RealTimeDb getUserData(UserDataChange dataChange) {
         setOnUserDataChagne(dataChange);
         return realTimeDb;
+    }
+
+    /**
+     * 获取会话列表信息
+     * @param userid
+     * @return
+     */
+    public DatabaseReference getSessionRef(String userid) {
+        DatabaseReference dbRef = database.getReference(Constants.MessageList).child(userid);
+        dbRef.addValueEventListener(valueEventListener);
+        return dbRef;
+    }
+
+    public void updataSession(String username, String content) {
+        DatabaseReference reference = database.getReference(Constants.Messages).child(username);
+        ArrayList<SessionBean> list= new ArrayList<>();
+        SessionBean sessionBean = new SessionBean("hellow "+username+"!", "", "", "ake", System.currentTimeMillis() + "");
+        SessionBean sessionBean1 = new SessionBean("hellow ake!", "", "", username, System.currentTimeMillis() + "");
+        list.add(sessionBean);
+        list.add(sessionBean1);
+        reference.setValue(list);
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Toast.makeText(ctx, "添加成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
