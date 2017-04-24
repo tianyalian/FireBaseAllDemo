@@ -1,0 +1,232 @@
+{users:[
+	{
+	  "id": "00000000-0000-0000-0000-000000000000",
+	  "createTime": "0001-01-01 00:00:00",
+	  "level": 0,
+	  "nick": "string",
+	  "gender": false,
+	  "birthday": "0001-01-01 00:00:00",
+	  "cellphoneNumber": "string",
+	  "emailAddress": "string",
+	  "name": "string",
+	  "picture": "string""address": "string"
+	},
+	{...},
+	{...},
+	]
+}
+
+
+{
+  // Chats contains only meta info about each conversation
+  // stored under the chats's unique ID
+  "chats": {
+
+  chatlist:[
+  { {
+      "title": "Historical Tech Pioneers",
+      "lastMessage": "ghopper: Relay malfunction found. Cause: moth.",
+      "timestamp": 1459361875666,
+      "member":"天涯恋",
+	"fridlogo":"pic"
+	"messageid":"青青"
+    }},
+    { ... },
+    { ... }]
+   
+  },
+
+
+  // Messages are separate from data we may want to iterate quickly
+  // but still easily paginated and queried, and organized by chat
+  // converation ID
+  "messages": {
+    "青青": {
+      "m1": {
+        "name": "eclarke",
+        "message": "The relay seems to be malfunctioning.",
+        "timestamp": 1459361875337
+      },
+      "m2": { ... },
+      "m3": { ... }
+    },
+    "明明": { ... },
+    "亮亮": { ... }
+  }
+}
+
+
+{
+  // Chats contains only meta info about each conversation
+  // stored under the chats's unique ID
+  "chats": {
+    chatlist: [
+      {
+        {
+          "title": "Historical Tech Pioneers",
+          "lastMessage": "ghopper: Relay malfunction found. Cause: moth.",
+          "timestamp": 1459361875666,
+          "member": "天涯恋",
+          "fridlogo": "pic""messageid": "青青"
+        }
+      }
+      ,
+    { ... },
+    { ... }
+    ]
+  },
+
+   // Messages are separate from data we may want to iterate quickly
+  // but still easily paginated and queried, and organized by chat
+  // converation ID
+
+  "messages": {
+    "青青": {
+      "m1": {
+        "name": "eclarke",
+        "message": "The relay seems to be malfunctioning.",
+        "timestamp": 1459361875337
+      }
+      ,
+      "m2": { ... },
+      "m3": { ... }
+    }
+  ,
+    "明明": { ... },
+    "亮亮": { ... }
+  }
+}
+
+
+
+
+
+
+
+完成对象:
+
+{
+  users:{userid:
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "createTime": "0001-01-01 00:00:00",
+      "level": "1",
+      "nick": "dingding",
+      "isOnline": false,
+      "birthday": "0001-01-01 00:00:00",
+      "cellphoneNumber": "15617771050",
+      "emailAddress": "ake@gmail.com",
+      "name": "ake",
+      "picture": "string",
+      "address": "科学大道"
+    }
+    }
+  
+}
+
+
+{
+  "chats": {
+    chatlist: [
+      {
+        {
+          "title": "Historical Tech Pioneers",
+          "lastMessage": "ghopper: Relay malfunction found. Cause: moth.",
+          "timestamp": 1459361875666,
+          "member": "天涯恋",
+          "fridlogo": "pic",
+	  "messageid": "青青"
+        }
+      }
+    ]
+  },
+  "messages": {
+    "青青": {[
+      {
+        "name": "eclarke",
+        "message": "The relay seems to be malfunctioning.",
+        "timestamp": 1459361875337
+      }]
+    }
+  }
+}
+
+
+https://firebase.google.com/docs/database/android/structure-data
+
+
+
+避免嵌套数据
+
+因为 Firebase Realtime Database 允许嵌套数据的深度多达 32 层，您可能不禁认为嵌套应是默认结构。然而，当您提取数据库中某个位置的数据时，也会检索所有子节点。另外，当您向某用户授予数据库中某个节点的读写访问权时，也会将该节点下所有数据的访问权授予该用户。因此，在实践中建议最好将您的数据结构平面化。
+
+为举例说明为什么嵌套数据不正确，现假设一个如下所示的多层嵌套结构：
+
+{
+  // This is a poorly nested data architecture, because iterating the children
+  // of the "chats" node to get a list of conversation titles requires
+  // potentially downloading hundreds of megabytes of messages
+  "chats": {
+    "one": {
+      "title": "Historical Tech Pioneers",
+      "messages": {
+        "m1": { "sender": "ghopper", "message": "Relay malfunction found. Cause: moth." },
+        "m2": { ... },
+        // a very long list of messages
+      }
+    },
+    "two": { ... }
+  }
+}
+若采用这种嵌套设计，循环访问数据就会出现问题。例如，要列出聊天对话标题，就需要将整个 chats 树（包括所有成员和消息）都下载到客户端。
+
+平展数据结构
+
+如果数据被拆分到不同路径（又称反规范化），则可根据需要通过不同调用有效地下载。 请考虑此平面化结构：
+
+{
+  // Chats contains only meta info about each conversation
+  // stored under the chats's unique ID
+  "chats": {
+    "one": {
+      "title": "Historical Tech Pioneers",
+      "lastMessage": "ghopper: Relay malfunction found. Cause: moth.",
+      "timestamp": 1459361875666
+    },
+    "two": { ... },
+    "three": { ... }
+  },
+
+  // Conversation members are easily accessible
+  // and stored by chat conversation ID
+  "members": {
+    // we'll talk about indices like this below
+    "one": {
+      "ghopper": true,
+      "alovelace": true,
+      "eclarke": true
+    },
+    "two": { ... },
+    "three": { ... }
+  },
+
+  // Messages are separate from data we may want to iterate quickly
+  // but still easily paginated and queried, and organized by chat
+  // converation ID
+  "messages": {
+    "one": {
+      "m1": {
+        "name": "eclarke",
+        "message": "The relay seems to be malfunctioning.",
+        "timestamp": 1459361875337
+      },
+      "m2": { ... },
+      "m3": { ... }
+    },
+    "two": { ... },
+    "three": { ... }
+  }
+}
+现在，每个对话只需下载几个字节即可循环访问房间列表，同时可以快速提取元数据，在 UI 中列出或显示房间。
+
+在消息到达时，可单独提取和显示，从而确保 UI 的及时响应和速度。

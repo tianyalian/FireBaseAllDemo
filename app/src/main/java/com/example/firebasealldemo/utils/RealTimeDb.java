@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;
 import com.google.firebase.database.ChildEventListener;
@@ -170,6 +171,15 @@ public class RealTimeDb {
 
             }
         });
+    }
+
+    public void updataChatList(String username){
+        DatabaseReference reference = database.getReference(Constants.ChatList).child(username);
+        ArrayList<ChatListItemBean> list= new ArrayList<>();
+        ChatListItemBean itemBean = new ChatListItemBean("","去哪里吃饭?","1426548624","","","");
+        list.add(itemBean);
+        reference.setValue(list);
+//        reference.addChildEventListener();
     }
 
 }

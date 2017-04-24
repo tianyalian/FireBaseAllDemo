@@ -60,7 +60,8 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             case R.id.button3:
                 RealTimeDb instance = RealTimeDb.getInstance(context);
                 String s = name.getText().toString();
-                instance.updataSession(s, ")");
+//                instance.updataSession(s, ")");
+                instance.updataChatList(s);
 
                 break;
         }
