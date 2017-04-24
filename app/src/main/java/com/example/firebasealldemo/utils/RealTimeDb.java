@@ -21,6 +21,21 @@ public class RealTimeDb {
     public final DatabaseReference dbRef;
 
 
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            User value = dataSnapshot.getValue(User.class);
+            Toast.makeText(ctx, "提交成功!", Toast.LENGTH_SHORT).show();
+            if (dataChangelistener != null) {
+                dataChangelistener.onDataChange(value);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Toast.makeText(ctx, "提交失败,请重试...", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private RealTimeDb(Context ctx) {
         this.ctx = ctx;
@@ -40,26 +55,9 @@ public class RealTimeDb {
         return realTimeDb;
     }
 
-    public RealTimeDb savaUserInfo(String userid,User user) {
-        dbRef.child(userid).setValue(user);
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User value = dataSnapshot.getValue(User.class);
-                Toast.makeText(ctx, ""+value.toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return realTimeDb;
-    }
 
     public void sendStingTodb(String content) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        dbRef = database.getReference(Constants.realTimeDb_refence).child(Constants.Users);
         DatabaseReference message  = database.getReference("message");
         message.setValue("hellow Firebase db");
         message.addValueEventListener(new ValueEventListener() {
@@ -75,4 +73,51 @@ public class RealTimeDb {
             }
         });
     }
+
+
+    /**
+     * 设置用户信息
+     * @param userid
+     * @param user 改变的值
+     * @return RealTimeDb
+     */
+    public RealTimeDb savaUserInfo(String userid, User user) {
+        getUserRef(userid).setValue(user);
+        return realTimeDb;
+    }
+
+    /**
+     * dbRef.addValueEventListener 第一次加载和数据改变都会执行
+     * @param userid
+     * @return
+     */
+    public DatabaseReference getUserRef(String userid) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference("users").child(userid);
+        dbRef.addValueEventListener(valueEventListener);
+        return dbRef;
+    }
+
+
+    /**
+     * 用户信息回调接口
+     */
+    UserDataChange dataChangelistener;
+    public interface UserDataChange{
+        void onDataChange(User user);
+    }
+
+    public void setOnUserDataChagne(UserDataChange dataChange) {
+        this.dataChangelistener = dataChange;
+    }
+
+    /**
+     * 获取用户信息  第一次获取信息和信息改变都是一个回调
+     * @param dataChange 用户信息回调接口
+     */
+    public RealTimeDb getUserData(UserDataChange dataChange) {
+        setOnUserDataChagne(dataChange);
+        return realTimeDb;
+    }
+
 }

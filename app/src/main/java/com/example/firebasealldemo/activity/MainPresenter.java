@@ -2,13 +2,21 @@ package com.example.firebasealldemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.firebasealldemo.Constants;
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.bean.User;
+import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.mvp.BasePresenterImpl;
+import com.example.firebasealldemo.utils.HttpUtil;
+import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
+import com.google.firebase.storage.StorageReference;
 import com.yanzhenjie.album.Album;
 
 import net.bither.util.NativeUtil;
@@ -51,4 +59,28 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
     public void reFreshHeader(String url, Context context, ImageView imageView) {
         GlideImageLoader.getInstance(context).displayImage(url,imageView);
     }
+
+    @Override
+    public void reFreshUserInfo(final Context context , final TextView tvName, final ImageView imageView) {
+        StorageReference storageRef = HttpUtil.getInstance().getStorageRef(Constants.header_refence);
+        HttpUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
+            @Override
+            public void onSuccess(Uri uri) {
+                super.onSuccess(uri);
+               reFreshHeader(uri.toString(),context,imageView);
+            }
+        });
+
+        RealTimeDb.getInstance(context).getUserData(new RealTimeDb.UserDataChange() {
+            @Override
+            public void onDataChange(User user) {
+                tvName.setText(user.nick);
+            }
+        }).getUserRef(Constants.UserID);
+
+    }
+
+
+
+
 }

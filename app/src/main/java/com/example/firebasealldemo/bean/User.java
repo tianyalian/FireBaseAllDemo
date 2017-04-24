@@ -1,5 +1,7 @@
 package com.example.firebasealldemo.bean;
 
+import java.util.ArrayList;
+
 /**
  * Created by seeker on 2017/4/21.
  */
@@ -11,7 +13,7 @@ public class User {
     public User(String id, String createTime, String level, String nick,
                 boolean isOnline, String birthday, String cellphoneNumber,
                 String emailAddress, String name, String picture,
-                String address, String[] friends) {
+                String address, ArrayList<String> friends) {
         this.id = id;
         this.createTime = createTime;
         this.level = level;
@@ -52,6 +54,6 @@ public class User {
     public String name;
     public String picture;
     public String address;
-    public String [] friends;
+    public ArrayList<String> friends;
 
 }
