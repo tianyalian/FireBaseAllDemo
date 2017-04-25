@@ -1,8 +1,17 @@
 package com.example.firebasealldemo.activity.session;
 
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.adapter.SessionListAdapter;
+import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
+
+import java.util.ArrayList;
 
 
 /**
@@ -10,7 +19,12 @@ import com.example.firebasealldemo.mvp.MVPBaseActivity;
  *  邮箱 784787081@qq.com
  */
 
-public class SessionActivity extends MVPBaseActivity<SessionContract.View, SessionPresenter> implements SessionContract.View {
+public class SessionActivity extends MVPBaseActivity<SessionContract.View, SessionPresenter> implements SessionContract.View, View.OnClickListener {
+
+
+    public EditText etContent;
+    public Button btnSend;
+    public RecyclerView recyclerView;
 
     @Override
     public int getLayoutResId() {
@@ -19,16 +33,32 @@ public class SessionActivity extends MVPBaseActivity<SessionContract.View, Sessi
 
     @Override
     public void initView() {
-
+        etContent = (EditText) findViewById(R.id.etContent);
+        btnSend = (Button) findViewById(R.id.btnSend);
+        recyclerView = (RecyclerView)findViewById(R.id.cvMessage);
     }
 
     @Override
     public void initListener() {
-
+        btnSend.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnSend:
+                submit();
+                break;
+        }
+    }
+
+    public  void submit(){
+        String s = etContent.getText().toString().toString();
 
     }
 }

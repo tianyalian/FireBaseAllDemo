@@ -1,18 +1,15 @@
 package com.example.firebasealldemo.fragment.message;
 
 
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.adapter.SessionListAdapter;
+import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.mvp.MVPBaseFragment;
-import com.example.firebasealldemo.utils.RealTimeDb;
-import com.google.firebase.iid.FirebaseInstanceId;
 
-import static android.content.ContentValues.TAG;
+import java.util.ArrayList;
 
 /**
  * MVPPlugin
@@ -21,9 +18,8 @@ import static android.content.ContentValues.TAG;
 
 public class MessageFragment extends MVPBaseFragment<MessageContract.View, MessagePresenter> implements MessageContract.View, View.OnClickListener {
 
-    private Button btn,test;
-    private EditText name;
 
+    private RecyclerView recycle_view;
 
     @Override
     public int getLayoutResId() {
@@ -32,38 +28,34 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void initView(View view) {
-        btn = (Button) view.findViewById(R.id.button2);
-        test = (Button) view.findViewById(R.id.button3);
-        name = (EditText) view.findViewById(R.id.etname);
-        test.setOnClickListener(this);
-        btn.setOnClickListener(this);
+        recycle_view = (RecyclerView) view.findViewById(R.id.recycle_view);
     }
 
     @Override
     public void initListener() {
+
     }
 
     @Override
     public void initData() {
-
+        ArrayList<ChatListItemBean> list = new ArrayList<ChatListItemBean>();
+        SessionListAdapter adapter = new SessionListAdapter(context, list);
+        recycle_view.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button2:
-                String token = FirebaseInstanceId.getInstance().getToken();
-                Log.d(TAG, token);
-                Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.button3:
-                RealTimeDb instance = RealTimeDb.getInstance(context);
-                String s = name.getText().toString();
-//                instance.updataSession(s, ")");
-                instance.updataChatList(s);
-
-                break;
+//            case R.id.button2:
+//
+//                break;
+//
+//            case R.id.button3:
+//
+//
+//                break;
         }
     }
+
+
 }
