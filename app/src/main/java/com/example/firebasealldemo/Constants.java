@@ -16,9 +16,10 @@ public class Constants {
             ,ChatList="chatlist"
             ,Chat="chat"
             ,Messages="messages"
-            ,UserID="ake747327606"
+            ,UserID="userId"
+            , sp = "sp"
+            ,UserCount="userCount"
             ,header_compressed= root_sdCard +"0.jpg";
-
 
 
 }

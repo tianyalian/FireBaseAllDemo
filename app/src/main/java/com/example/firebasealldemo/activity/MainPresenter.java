@@ -16,6 +16,7 @@ import com.example.firebasealldemo.mvp.BasePresenterImpl;
 import com.example.firebasealldemo.utils.HttpUtil;
 import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
+import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 import com.google.firebase.storage.StorageReference;
 import com.yanzhenjie.album.Album;
 
@@ -76,7 +77,7 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
             public void onDataChange(User user) {
                 tvName.setText(user.nick);
             }
-        }).getUserRef(Constants.UserID);
+        }).getUserRef(SPUtil.getString(Constants.UserID,"" ));
 
     }
 

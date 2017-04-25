@@ -20,6 +20,7 @@ import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.utils.HttpUtil;
 import com.example.firebasealldemo.utils.RealTimeDb;
+import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
 //        user.level = "1";
 //        user.friends = new String[]{"甜甜", "安安"};
 
-        user.id = Constants.UserID;
+        user.id = SPUtil.getString(Constants.UserID,"" );
         user.address = "老鸦陈";
         user.name = "ake";
         user.nick = "天涯恋";
@@ -136,7 +137,7 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
 
 
 
-        uploadData(Constants.UserID, user);
+        uploadData(SPUtil.getString(Constants.UserID,"" ), user);
 
     }
 

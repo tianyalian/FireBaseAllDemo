@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.firebasealldemo.Constants;
 import com.example.firebasealldemo.activity.MainActivity;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
 import com.example.firebasealldemo.utils.MD5Util;
 import com.example.firebasealldemo.utils.RealTimeDb;
+import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,6 +40,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private String account;
+    private String userid;
 
 
     @Override
@@ -65,6 +68,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    SPUtil.put(LoginActivity.this, Constants.UserCount,account);
+                    SPUtil.put(LoginActivity.this, Constants.UserID,userid);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -123,9 +128,12 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         }
     }
 
+
     public void registCount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
@@ -134,7 +142,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener
                         if (task.isSuccessful()) {
-                            String userid = MD5Util.getMessageIDMD5(account);
+                            userid = MD5Util.getMessageIDMD5(account);
                             RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
                                     new User(userid,"","","",false,"","","","","","",null));
                         } else {
