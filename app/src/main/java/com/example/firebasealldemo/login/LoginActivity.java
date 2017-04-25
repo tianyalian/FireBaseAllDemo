@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import com.example.firebasealldemo.activity.MainActivity;
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
+import com.example.firebasealldemo.utils.MD5Util;
+import com.example.firebasealldemo.utils.RealTimeDb;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,6 +37,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     private Button regist;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
+    private String account;
 
 
     @Override
@@ -91,8 +95,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     }
 
     public void submit(boolean isLogin) {
-        String account = et_account.getText().toString().toString();
-        String pwd = et_pwd.getText().toString().toString();
+        account = et_account.getText().toString().trim();
+        String pwd = et_pwd.getText().toString().trim();
         if (!TextUtils.isEmpty(pwd) && !TextUtils.isEmpty(pwd)) {
             if (isLogin) {
                 loginAccount(account, pwd);
@@ -129,7 +133,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener
-                        if (!task.isSuccessful()) {
+                        if (task.isSuccessful()) {
+                            String userid = MD5Util.getMessageIDMD5(account);
+                            RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
+                                    new User(userid,"","","",false,"","","","","","",null));
+                        } else {
                             Toast.makeText(LoginActivity.this, "创建账号失败",
                                     Toast.LENGTH_SHORT).show();
                         }

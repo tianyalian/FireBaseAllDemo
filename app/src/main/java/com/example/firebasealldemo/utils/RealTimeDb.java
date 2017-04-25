@@ -109,6 +109,9 @@ public class RealTimeDb {
      * 用户信息回调接口
      */
     UserDataChange dataChangelistener;
+
+
+
     public interface UserDataChange{
         void onDataChange(User user);
     }
