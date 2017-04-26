@@ -68,9 +68,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     String usercount = et_account.getText().toString().trim();
-                    userid = MD5Util.getMessageIDMD5(usercount);
-                    SPUtil.put(LoginActivity.this, Constants.UserCount, usercount);
-                    SPUtil.put(LoginActivity.this, Constants.UserID,userid);
+                    userid = MD5Util.getUserIDMD5(usercount);
+                    if (TextUtils.isEmpty(SPUtil.getString(Constants.UserCount, ""))) {
+                        SPUtil.put(LoginActivity.this, Constants.UserCount, usercount);
+                        SPUtil.put(LoginActivity.this, Constants.UserID,userid);
+                    }
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

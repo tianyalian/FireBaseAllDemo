@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Util {
 
+
 	public static String getUserIDMD5(String encoding) {
 		String resultString = "";
 		try {

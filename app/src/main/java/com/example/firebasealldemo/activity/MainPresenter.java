@@ -76,11 +76,10 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
             @Override
             public void onDataChange(User user) {
                 if (user != null) {
-                tvName.setText(user.nick);
+                   tvName.setText(user.nick);
                 }
             }
         }).getUserRef(SPUtil.getString(Constants.UserID,"" ));
-
     }
 
 

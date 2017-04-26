@@ -3,10 +3,11 @@ package com.example.firebasealldemo.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;
+import com.example.firebasealldemo.constant.Constants;
+import com.example.firebasealldemo.interf.UserDataChange;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -94,27 +95,9 @@ public class RealTimeDb {
     }
 
     /**
-     * dbRef.addValueEventListener 第一次加载和数据改变都会执行
-     * @param userid
-     * @return
-     */
-    public DatabaseReference getUserRef(String userid) {
-        DatabaseReference dbRef = database.getReference(Constants.Users).child(userid);
-        dbRef.addValueEventListener(valueEventListener);
-        return dbRef;
-    }
-
-
-    /**
      * 用户信息回调接口
      */
     UserDataChange dataChangelistener;
-
-
-
-    public interface UserDataChange{
-        void onDataChange(User user);
-    }
 
     public void setOnUserDataChagne(UserDataChange dataChange) {
         this.dataChangelistener = dataChange;
@@ -130,12 +113,30 @@ public class RealTimeDb {
     }
 
     /**
-     * 获取会话列表信息
+     * 获取会话列表信息的引用
      * @param userid
      * @return
      */
-    public DatabaseReference getSessionRef(String userid) {
-        DatabaseReference dbRef = database.getReference(Constants.MessageList).child(userid);
+    public DatabaseReference getChatListRef(String userid) {
+        DatabaseReference dbRef = database.getReference(Constants.ChatList).child(userid);
+        dbRef.addValueEventListener(valueEventListener);
+        return dbRef;
+    }
+
+    /**
+     * 获取用户信息的引用
+     * dbRef.addValueEventListener 第一次加载和数据改变都会执行
+     * @param userid
+     * @return
+     */
+    public DatabaseReference getUserRef(String userid) {
+        DatabaseReference dbRef = database.getReference(Constants.Users).child(userid);
+        dbRef.addValueEventListener(valueEventListener);
+        return dbRef;
+    }
+
+    public DatabaseReference getMessageRef(String userid) {
+        DatabaseReference dbRef = database.getReference(Constants.Messages).child(userid);
         dbRef.addValueEventListener(valueEventListener);
         return dbRef;
     }
@@ -184,5 +185,6 @@ public class RealTimeDb {
         reference.setValue(list);
 //        reference.addChildEventListener();
     }
+
 
 }
