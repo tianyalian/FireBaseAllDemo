@@ -3,7 +3,7 @@ package com.example.firebasealldemo.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;

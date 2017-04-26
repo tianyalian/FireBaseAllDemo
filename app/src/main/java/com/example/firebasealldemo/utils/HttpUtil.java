@@ -3,7 +3,7 @@ package com.example.firebasealldemo.utils;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.constant.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;

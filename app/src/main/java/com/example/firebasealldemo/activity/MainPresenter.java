@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.firebasealldemo.Constants;
+import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
@@ -75,7 +75,9 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
         RealTimeDb.getInstance(context).getUserData(new RealTimeDb.UserDataChange() {
             @Override
             public void onDataChange(User user) {
+                if (user != null) {
                 tvName.setText(user.nick);
+                }
             }
         }).getUserRef(SPUtil.getString(Constants.UserID,"" ));
 

@@ -1,4 +1,4 @@
-package com.example.firebasealldemo;
+package com.example.firebasealldemo.constant;
 
 import android.os.Environment;
 
@@ -9,7 +9,7 @@ import android.os.Environment;
 public class Constants {
     public static final String ROOT_gs = "gs://fir-alldemo-6e7e0.appspot.com"
              , root_sdCard = Environment.getExternalStorageDirectory().getPath()+"/"
-            , header_refence = "imaes/ake_header.jpg"
+            , header_refence = "imaes/header.jpeg"
             , realTimeDb_refence = "fir-alldemo-6e7e0"
             ,Users="users"
             ,MessageList="messagelist"
