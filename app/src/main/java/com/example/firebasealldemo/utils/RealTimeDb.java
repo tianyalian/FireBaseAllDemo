@@ -7,6 +7,8 @@ import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.constant.Constants;
+import com.example.firebasealldemo.interf.ChatListDataChange;
+import com.example.firebasealldemo.interf.MessageDataChange;
 import com.example.firebasealldemo.interf.UserDataChange;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,14 @@ public class RealTimeDb {
             Toast.makeText(ctx, "提交成功!", Toast.LENGTH_SHORT).show();
             if (dataChangelistener != null) {
                 dataChangelistener.onDataChange(value);
+            }
+
+            if (messageDataChange != null) {
+                messageDataChange.onMessageDataChange();
+            }
+
+            if (chatListDataChange != null) {
+                chatListDataChange.onChatListDataChange(null);
             }
         }
 
@@ -99,8 +109,38 @@ public class RealTimeDb {
      */
     UserDataChange dataChangelistener;
 
+    /**
+     * 会话信息改变的监听
+     */
+    MessageDataChange messageDataChange;
+
+    /**
+     * 会话列表改变的监听
+     */
+    ChatListDataChange chatListDataChange;
+
+    /**
+     * 设置用户信息改变的监听
+     * @param dataChange
+     */
     public void setOnUserDataChagne(UserDataChange dataChange) {
         this.dataChangelistener = dataChange;
+    }
+
+    /**
+     * 设置会话信息改变的监听
+     * @param messageDataChange
+     */
+    public void setOnMessageDataChange( MessageDataChange messageDataChange) {
+        this.messageDataChange = messageDataChange;
+    }
+
+    /**
+     * 设置会话列表改变的监听
+     * @param chatListDataChange
+     */
+    public void setOnChatListDataChange(ChatListDataChange chatListDataChange) {
+        this.chatListDataChange = chatListDataChange;
     }
 
     /**
@@ -135,12 +175,22 @@ public class RealTimeDb {
         return dbRef;
     }
 
+    /**
+     * 会话信息的引用
+     * @param userid
+     * @return
+     */
     public DatabaseReference getMessageRef(String userid) {
         DatabaseReference dbRef = database.getReference(Constants.Messages).child(userid);
         dbRef.addValueEventListener(valueEventListener);
         return dbRef;
     }
 
+    /**
+     * 更新会话信息
+     * @param username
+     * @param content
+     */
     public void updataSession(String username, String content) {
         DatabaseReference reference = database.getReference(Constants.Messages).child(username);
         ArrayList<SessionBean> list= new ArrayList<>();
@@ -182,9 +232,10 @@ public class RealTimeDb {
         ArrayList<ChatListItemBean> list= new ArrayList<>();
         ChatListItemBean itemBean = new ChatListItemBean("","去哪里吃饭?","1426548624","","","");
         list.add(itemBean);
-        reference.setValue(list);
+//        reference.setValue(list);
 //        reference.addChildEventListener();
     }
+
 
 
 }

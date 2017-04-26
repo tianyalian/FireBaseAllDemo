@@ -7,12 +7,17 @@ import android.view.View;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.adapter.SessionListAdapter;
 import com.example.firebasealldemo.bean.ChatListItemBean;
+import com.example.firebasealldemo.constant.Constants;
+import com.example.firebasealldemo.interf.ChatListDataChange;
 import com.example.firebasealldemo.mvp.MVPBaseFragment;
+import com.example.firebasealldemo.utils.RealTimeDb;
+import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * MVPPlugin
+ * 会话列表页面
  *  邮箱 784787081@qq.com
  */
 
@@ -20,6 +25,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
 
     private RecyclerView recycle_view;
+    private ArrayList<ChatListItemBean> chatlist;
 
     @Override
     public int getLayoutResId() {
@@ -33,14 +39,29 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void initListener() {
+        RealTimeDb instance = RealTimeDb.getInstance(getActivity());
+        instance.getChatListRef(SPUtil.getString(Constants.UserID, ""));
+        instance.setOnChatListDataChange(new ChatListDataChange() {
 
+            private SessionListAdapter adapter;
+
+            @Override
+            public void onChatListDataChange(List<ChatListItemBean> list) {
+                if (adapter == null) {
+                    adapter = new SessionListAdapter(context, chatlist);
+                    recycle_view.setAdapter(adapter);
+                } else {
+
+                }
+            }
+        });
     }
 
     @Override
     public void initData() {
-        ArrayList<ChatListItemBean> list = new ArrayList<ChatListItemBean>();
-        SessionListAdapter adapter = new SessionListAdapter(context, list);
-        recycle_view.setAdapter(adapter);
+        chatlist = new ArrayList<ChatListItemBean>();
+
+
     }
 
     @Override

@@ -8,9 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.bean.User;
+import com.example.firebasealldemo.constant.Constants;
+import com.example.firebasealldemo.interf.UserDataChange;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.mvp.BasePresenterImpl;
 import com.example.firebasealldemo.utils.HttpUtil;
@@ -72,7 +73,7 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
             }
         });
 
-        RealTimeDb.getInstance(context).getUserData(new RealTimeDb.UserDataChange() {
+        RealTimeDb.getInstance(context).getUserData(new UserDataChange() {
             @Override
             public void onDataChange(User user) {
                 if (user != null) {
