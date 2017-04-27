@@ -73,8 +73,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public void initData() {
          mPresenter.reFreshUserInfo(MainActivity.this,tv_name,civ_user_head);
-
-
     }
 
     @Override

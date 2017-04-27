@@ -59,30 +59,34 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
 
     @Override
     public void reFreshHeader(String url, Context context, ImageView imageView) {
-        GlideImageLoader.getInstance(context).displayImage(url,imageView);
+         GlideImageLoader.getInstance(context).displayImage(url,imageView);
     }
 
     @Override
     public void reFreshUserInfo(final Context context , final TextView tvName, final ImageView imageView) {
-        StorageReference storageRef = HttpUtil.getInstance().getStorageRef(Constants.header_refence);
-        HttpUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
-            @Override
-            public void onSuccess(Uri uri) {
-                super.onSuccess(uri);
-               reFreshHeader(uri.toString(),context,imageView);
-            }
-        });
-
+        refReshHeader(context,imageView);
         RealTimeDb.getInstance(context).getUserData(new UserDataChange() {
             @Override
             public void onDataChange(User user) {
                 if (user != null) {
                    tvName.setText(user.nick);
+                    refReshHeader(context,imageView);
                 }
             }
         }).getUserRef(SPUtil.getString(Constants.UserID,"" ));
     }
 
+
+    private void refReshHeader(final Context context , final ImageView imageView) {
+        StorageReference storageRef = HttpUtil.getInstance().getStorageRef(Constants.header_refence);
+        HttpUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
+            @Override
+            public void onSuccess(Uri uri) {
+                super.onSuccess(uri);
+                reFreshHeader(uri.toString(),context,imageView);
+            }
+        });
+    }
 
 
 

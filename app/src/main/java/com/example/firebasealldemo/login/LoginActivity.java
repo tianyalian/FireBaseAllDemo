@@ -148,7 +148,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         if (task.isSuccessful()) {
                             userid = MD5Util.getMessageIDMD5(et_account.getText().toString().trim());
                             RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
-                                    new User(userid,"","","",false,"","","","","","",null));
+                                    new User(userid,"","","",false,"","","","","","","",null));
                         } else {
                             Toast.makeText(LoginActivity.this, "创建账号失败",
                                     Toast.LENGTH_SHORT).show();

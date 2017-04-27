@@ -1,6 +1,7 @@
 package com.example.firebasealldemo.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.firebasealldemo.bean.ChatListItemBean;
@@ -19,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
+
 /**
  * Created by seeker on 2017/4/21.
  */
@@ -33,17 +36,20 @@ public class RealTimeDb {
     ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            User value = dataSnapshot.getValue(User.class);
-            Toast.makeText(ctx, "提交成功!", Toast.LENGTH_SHORT).show();
-            if (dataChangelistener != null) {
-                dataChangelistener.onDataChange(value);
+            DatabaseReference zzamu = dataSnapshot.getRef();
+            String callback = zzamu.zzcra().toString();
+            callback.contains("chatlist");
+            Log.d(TAG, "onDataChange: "+dataSnapshot.toString());
+            Toast.makeText(ctx, "私は戻ってきました !", Toast.LENGTH_SHORT).show();
+            if (callback.contains(Constants.Users) && dataChangelistener != null) {
+                dataChangelistener.onDataChange(dataSnapshot.getValue(User.class));
             }
 
-            if (messageDataChange != null) {
+            if (callback.contains(Constants.Messages) && messageDataChange != null) {
                 messageDataChange.onMessageDataChange();
             }
-
-            if (chatListDataChange != null) {
+//
+            if (callback.contains(Constants.ChatList) && chatListDataChange != null ) {
                 chatListDataChange.onChatListDataChange(null);
             }
         }
@@ -59,8 +65,8 @@ public class RealTimeDb {
         this.ctx = ctx;
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference(Constants.realTimeDb_refence).child(Constants.Users);
-
-   }
+        String chatList = Constants.ChatList;
+    }
 
     public static RealTimeDb getInstance(Context ctx) {
         if (realTimeDb == null) {
