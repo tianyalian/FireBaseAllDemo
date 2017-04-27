@@ -11,8 +11,8 @@
     <ImageView
         android:layout_marginLeft="5dp"
         android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark"
           />
 
@@ -24,10 +24,10 @@
         android:text="帆帆"
         android:textColor="@color/black0"
         android:textSize="16sp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="8dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/header"
-        android:layout_marginTop="6dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/last_message"
@@ -37,10 +37,10 @@
         android:text="瓦也很想你丫..."
         android:textSize="12sp"
         android:textColor="@color/gray3"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="8dp"
          android:layout_below="@id/friends_name"
         android:layout_toRightOf="@id/header"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="8dp"
      />
 
     <TextView
