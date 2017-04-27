@@ -10,6 +10,7 @@ import com.example.firebasealldemo.adapter.SessionListAdapter;
 import com.example.firebasealldemo.bean.ChatListBean;
 import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.interf.ChatListDataChange;
+import com.example.firebasealldemo.listener.MyDecoration;
 import com.example.firebasealldemo.mvp.MVPBaseFragment;
 import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.SPUtil;
@@ -63,6 +64,7 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         adapter = new SessionListAdapter(context, chatlist);
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
         recycle_view.setLayoutManager(manager);
+        recycle_view.addItemDecoration(new MyDecoration(context,LinearLayoutManager.VERTICAL));
         recycle_view.setAdapter(adapter);
         adapter.setOnItemClickListener(new SessionListAdapter.OnItemClick() {
             @Override
