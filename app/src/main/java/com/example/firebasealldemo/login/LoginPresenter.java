@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implements LoginContract.Presenter{

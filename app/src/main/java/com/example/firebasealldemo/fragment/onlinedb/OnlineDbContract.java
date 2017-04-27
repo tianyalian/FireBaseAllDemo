@@ -1,13 +1,11 @@
 package com.example.firebasealldemo.fragment.onlinedb;
 
-import android.content.Context;
-
 import com.example.firebasealldemo.mvp.BasePresenter;
 import com.example.firebasealldemo.mvp.BaseView;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public class OnlineDbContract {

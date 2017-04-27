@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 /**
  * MVPPlugin
- * 邮箱 784787081@qq.com
+ * 邮箱 747327606@qq.com
  */
 
 public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View, View.OnClickListener {
@@ -148,7 +148,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         if (task.isSuccessful()) {
                             userid = MD5Util.getMessageIDMD5(et_account.getText().toString().trim());
                             RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
-                                    new User(userid,"","","",false,"","","","","","","",null));
+                                    new User(userid,"","","","","","","","","",null));
                         } else {
                             Toast.makeText(LoginActivity.this, "创建账号失败",
                                     Toast.LENGTH_SHORT).show();
@@ -164,7 +164,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.

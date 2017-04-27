@@ -2,7 +2,7 @@ package com.example.firebasealldemo.mvp;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public interface  BasePresenter <V extends BaseView>{

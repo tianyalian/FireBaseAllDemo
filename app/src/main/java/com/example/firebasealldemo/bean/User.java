@@ -11,19 +11,17 @@ public class User {
     }
 
     public User(String id, String createTime, String level, String nick,
-                boolean isOnline, String birthday, String cellphoneNumber,
-                String emailAddress, String name, String picture,String logo,
+                 String birthday, String cellphoneNumber,
+                String emailAddress, String name, String logo,
                 String address, ArrayList<String> friends) {
         this.id = id;
         this.createTime = createTime;
         this.level = level;
         this.nick = nick;
-        this.isOnline = isOnline;
         this.birthday = birthday;
         this.cellphoneNumber = cellphoneNumber;
         this.emailAddress = emailAddress;
         this.name = name;
-        this.picture = picture;
         this.address = address;
         this.friends = friends;
         this.logo = logo;
@@ -48,12 +46,10 @@ public class User {
     public String createTime;
     public String level;
     public String nick;
-    public boolean isOnline;
     public String birthday;
     public String cellphoneNumber;
     public String emailAddress;
     public String name;
-    public String picture;
     public String address;
     public String logo;
     public ArrayList<String> friends;

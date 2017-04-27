@@ -70,7 +70,16 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
             public void onDataChange(User user) {
                 if (user != null) {
                    tvName.setText(user.nick);
-                    refReshHeader(context,imageView);
+                    SPUtil.put(context, Constants.UserID,user.id);
+                    SPUtil.put(context, Constants.address,user.address);
+                    SPUtil.put(context, Constants.createTime,user.createTime);
+                    SPUtil.put(context, Constants.level,user.level);
+                    SPUtil.put(context, Constants.birthday,user.birthday);
+                    SPUtil.put(context, Constants.cellphoneNumber,user.cellphoneNumber);
+                    SPUtil.put(context, Constants.emailAddress,user.emailAddress);
+                    SPUtil.put(context, Constants.nick,user.nick);
+                    SPUtil.put(context, Constants.name,user.name);
+                    SPUtil.put(context, Constants.friends,user.friends);
                 }
             }
         }).getUserRef(SPUtil.getString(Constants.UserID,"" ));

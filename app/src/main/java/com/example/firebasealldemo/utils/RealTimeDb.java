@@ -1,26 +1,23 @@
 package com.example.firebasealldemo.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.firebasealldemo.bean.ChatListItemBean;
+import com.example.firebasealldemo.bean.ChatListBean;
 import com.example.firebasealldemo.bean.SessionBean;
 import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.interf.ChatListDataChange;
 import com.example.firebasealldemo.interf.MessageDataChange;
 import com.example.firebasealldemo.interf.UserDataChange;
+import com.example.firebasealldemo.listener.MyValueEventListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by seeker on 2017/4/21.
@@ -31,34 +28,7 @@ public class RealTimeDb {
     private static RealTimeDb realTimeDb;
     public final DatabaseReference dbRef;
     private final FirebaseDatabase database;
-
-
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            DatabaseReference zzamu = dataSnapshot.getRef();
-            String callback = zzamu.zzcra().toString();
-            callback.contains("chatlist");
-            Log.d(TAG, "onDataChange: "+dataSnapshot.toString());
-            Toast.makeText(ctx, "私は戻ってきました !", Toast.LENGTH_SHORT).show();
-            if (callback.contains(Constants.Users) && dataChangelistener != null) {
-                dataChangelistener.onDataChange(dataSnapshot.getValue(User.class));
-            }
-
-            if (callback.contains(Constants.Messages) && messageDataChange != null) {
-                messageDataChange.onMessageDataChange();
-            }
-//
-            if (callback.contains(Constants.ChatList) && chatListDataChange != null ) {
-                chatListDataChange.onChatListDataChange(null);
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Toast.makeText(ctx, "提交失败,请重试...", Toast.LENGTH_SHORT).show();
-        }
-    };
+    private final MyValueEventListener valueEventListener;
 
 
     private RealTimeDb(Context ctx) {
@@ -66,6 +36,7 @@ public class RealTimeDb {
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference(Constants.realTimeDb_refence).child(Constants.Users);
         String chatList = Constants.ChatList;
+        valueEventListener = new MyValueEventListener(ctx);
     }
 
     public static RealTimeDb getInstance(Context ctx) {
@@ -84,18 +55,7 @@ public class RealTimeDb {
     public void sendStingTodb(String content) {
         DatabaseReference message  = database.getReference("message");
         message.setValue("hellow Firebase db");
-        message.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(ctx, ""+value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        message.addValueEventListener(valueEventListener);
     }
 
 
@@ -111,26 +71,11 @@ public class RealTimeDb {
     }
 
     /**
-     * 用户信息回调接口
-     */
-    UserDataChange dataChangelistener;
-
-    /**
-     * 会话信息改变的监听
-     */
-    MessageDataChange messageDataChange;
-
-    /**
-     * 会话列表改变的监听
-     */
-    ChatListDataChange chatListDataChange;
-
-    /**
      * 设置用户信息改变的监听
      * @param dataChange
      */
     public void setOnUserDataChagne(UserDataChange dataChange) {
-        this.dataChangelistener = dataChange;
+        valueEventListener.dataChangelistener = dataChange;
     }
 
     /**
@@ -138,7 +83,7 @@ public class RealTimeDb {
      * @param messageDataChange
      */
     public void setOnMessageDataChange( MessageDataChange messageDataChange) {
-        this.messageDataChange = messageDataChange;
+        valueEventListener.messageDataChange = messageDataChange;
     }
 
     /**
@@ -146,7 +91,7 @@ public class RealTimeDb {
      * @param chatListDataChange
      */
     public void setOnChatListDataChange(ChatListDataChange chatListDataChange) {
-        this.chatListDataChange = chatListDataChange;
+        valueEventListener.chatListDataChange = chatListDataChange;
     }
 
     /**
@@ -235,9 +180,9 @@ public class RealTimeDb {
 
     public void updataChatList(String username){
         DatabaseReference reference = database.getReference(Constants.ChatList).child(username);
-        ArrayList<ChatListItemBean> list= new ArrayList<>();
-        ChatListItemBean itemBean = new ChatListItemBean("","去哪里吃饭?","1426548624","","","");
-        list.add(itemBean);
+        ArrayList<ChatListBean> list= new ArrayList<>();
+//        ChatListBean itemBean = new ChatListBean(list);
+//        list.add(itemBean);.
 //        reference.setValue(list);
 //        reference.addChildEventListener();
     }

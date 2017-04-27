@@ -6,7 +6,7 @@ import com.example.firebasealldemo.mvp.BasePresenterImpl;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public class SessionPresenter extends BasePresenterImpl<SessionContract.View> implements SessionContract.Presenter{

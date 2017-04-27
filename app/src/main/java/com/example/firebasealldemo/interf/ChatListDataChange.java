@@ -1,6 +1,6 @@
 package com.example.firebasealldemo.interf;
 
-import com.example.firebasealldemo.bean.ChatListItemBean;
+import com.example.firebasealldemo.bean.ChatListBean;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface ChatListDataChange {
-    void onChatListDataChange(List<ChatListItemBean> list);
+    void onChatListDataChange( List<ChatListBean> list);
 }

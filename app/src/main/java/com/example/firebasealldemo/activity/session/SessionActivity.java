@@ -7,16 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.firebasealldemo.R;
-import com.example.firebasealldemo.adapter.SessionListAdapter;
-import com.example.firebasealldemo.bean.ChatListItemBean;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
-
-import java.util.ArrayList;
 
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public class SessionActivity extends MVPBaseActivity<SessionContract.View, SessionPresenter> implements SessionContract.View, View.OnClickListener {

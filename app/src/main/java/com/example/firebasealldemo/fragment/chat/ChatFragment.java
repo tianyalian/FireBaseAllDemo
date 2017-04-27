@@ -8,7 +8,7 @@ import com.example.firebasealldemo.mvp.MVPBaseFragment;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ *  邮箱 747327606@qq.com
  */
 
 public class ChatFragment extends MVPBaseFragment<ChatContract.View, ChatPresenter> implements ChatContract.View {

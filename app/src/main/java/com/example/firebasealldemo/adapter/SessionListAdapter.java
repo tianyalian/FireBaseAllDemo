@@ -8,8 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.firebasealldemo.R;
-import com.example.firebasealldemo.bean.ChatListItemBean;
-import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
+import com.example.firebasealldemo.bean.ChatListBean;
 
 import java.util.ArrayList;
 
@@ -19,9 +18,9 @@ import java.util.ArrayList;
 
 public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.EditproductHolder> {
     public static Context ctx;
-    public static ArrayList<ChatListItemBean> list;
+    public static ArrayList<ChatListBean> list;
 
-    public SessionListAdapter(Context ctx, ArrayList<ChatListItemBean> list) {
+    public SessionListAdapter(Context ctx, ArrayList<ChatListBean> list) {
         this.ctx = ctx;
         this.list = list;
     }
@@ -39,15 +38,15 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 5;
     }
 
     public void initData(EditproductHolder holder, int position) {
-        ChatListItemBean itemBean = list.get(position);
-        holder.time.setText(itemBean.timestamp);
-        holder.last_message.setText(itemBean.lastMessage);
-        holder.friends_name.setText(itemBean.member);
-        GlideImageLoader.getInstance(ctx).displayImage(itemBean.fridlogo,holder.header);
+//        ChatListBean itemBean = list.get(position);
+//        holder.time.setText(itemBean.timestamp);
+//        holder.last_message.setText(itemBean.lastMessage);
+//        holder.friends_name.setText(itemBean.member);
+//        GlideImageLoader.getInstance(ctx).displayImage(itemBean.fridlogo,holder.header);
     }
 
     public class EditproductHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
