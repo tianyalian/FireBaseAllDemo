@@ -10,13 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.firebasealldemo.constant.Constants;
-import com.example.firebasealldemo.activity.MainActivity;
 import com.example.firebasealldemo.R;
-import com.example.firebasealldemo.bean.User;
+import com.example.firebasealldemo.activity.MainActivity;
+import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
-import com.example.firebasealldemo.utils.MD5Util;
-import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,13 +63,13 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     String usercount = et_account.getText().toString().trim();
-                    userid = MD5Util.getUserIDMD5(usercount);
-                    if (TextUtils.isEmpty(SPUtil.getString(Constants.UserCount, ""))) {
+//                    if (TextUtils.isEmpty(SPUtil.getString(Constants.UserCount, ""))) {
                         SPUtil.put(LoginActivity.this, Constants.UserCount, usercount);
-                        SPUtil.put(LoginActivity.this, Constants.UserID,userid);
-                    }
+                        SPUtil.put(LoginActivity.this, Constants.UserID,user.getUid());
+//                    }
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -146,9 +143,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener
                         if (task.isSuccessful()) {
-                            userid = MD5Util.getMessageIDMD5(et_account.getText().toString().trim());
-                            RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
-                                    new User(userid,"","","","","","","","","",null));
+//                            userid = MD5Util.getMessageIDMD5(et_account.getText().toString().trim());
+//                            RealTimeDb.getInstance(LoginActivity.this).savaUserInfo(userid,
+//                                    new User(userid,"","","","","","","","","",null));
                         } else {
                             Toast.makeText(LoginActivity.this, "创建账号失败",
                                     Toast.LENGTH_SHORT).show();

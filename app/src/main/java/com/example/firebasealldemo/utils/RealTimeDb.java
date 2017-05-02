@@ -128,11 +128,11 @@ public class RealTimeDb {
 
     /**
      * 会话信息的引用
-     * @param userid
+     * @param messageid
      * @return
      */
-    public DatabaseReference getMessageRef(String userid) {
-        DatabaseReference dbRef = database.getReference(Constants.Messages).child(userid);
+    public DatabaseReference getMessageRef(String messageid) {
+        DatabaseReference dbRef = database.getReference(Constants.Messages).child(messageid);
         dbRef.addValueEventListener(valueEventListener);
         return dbRef;
     }

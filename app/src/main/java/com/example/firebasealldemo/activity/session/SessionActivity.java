@@ -5,9 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.bean.SessionBean;
+import com.example.firebasealldemo.constant.Constants;
+import com.example.firebasealldemo.interf.MessageDataChange;
 import com.example.firebasealldemo.mvp.MVPBaseActivity;
+import com.example.firebasealldemo.utils.RealTimeDb;
+
+import java.util.List;
 
 
 /**
@@ -37,11 +44,20 @@ public class SessionActivity extends MVPBaseActivity<SessionContract.View, Sessi
     @Override
     public void initListener() {
         btnSend.setOnClickListener(this);
+        String messages = Constants.Messages;
+        RealTimeDb instance = RealTimeDb.getInstance(SessionActivity.this);
+        instance.setOnMessageDataChange(new MessageDataChange() {
+            @Override
+            public void onMessageDataChange(List<SessionBean> value) {
+                Toast.makeText(ctx, value.toString()+"", Toast.LENGTH_SHORT).show();
+            }
+        });
+        instance.getMessageRef(Constants.messageid);
+
     }
 
     @Override
     public void initData() {
-
     }
 
     @Override

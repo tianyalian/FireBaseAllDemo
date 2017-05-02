@@ -29,6 +29,7 @@ public class  MyValueEventListener implements ValueEventListener {
 
     public MyValueEventListener(Context context) {
         this.context = context;
+        String messages = Constants.Messages;
     }
 
     private Context context;
@@ -60,7 +61,6 @@ public class  MyValueEventListener implements ValueEventListener {
     public void onDataChange(DataSnapshot dataSnapshot) {
         DatabaseReference zzamu = dataSnapshot.getRef();
         String callback = zzamu.zzcra().toString();
-        callback.contains("chatlist");
         Log.d(TAG, "onDataChange: "+dataSnapshot.toString());
         Toast.makeText(context, "他大姨妈!", Toast.LENGTH_SHORT).show();
         //用户信息回调
@@ -69,8 +69,9 @@ public class  MyValueEventListener implements ValueEventListener {
         }
         //会话内容回调
         if (callback.contains(Constants.Messages) && messageDataChange != null) {
-            SessionBean value = dataSnapshot.getValue(SessionBean.class);
-            messageDataChange.onMessageDataChange();
+            GenericTypeIndicator<List<SessionBean>> t = new GenericTypeIndicator<List<SessionBean>>() {};
+            List<SessionBean> value = dataSnapshot.getValue(t);
+            messageDataChange.onMessageDataChange(value);
         }
         //会话列表回调
         if (callback.contains(Constants.ChatList) && chatListDataChange != null ) {

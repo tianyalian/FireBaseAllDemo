@@ -1,11 +1,14 @@
 package com.example.firebasealldemo.fragment.message;
 
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.activity.session.SessionActivity;
 import com.example.firebasealldemo.adapter.SessionListAdapter;
 import com.example.firebasealldemo.bean.ChatListBean;
 import com.example.firebasealldemo.constant.Constants;
@@ -42,24 +45,6 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
 
     @Override
     public void initListener() {
-        RealTimeDb instance = RealTimeDb.getInstance(getActivity());
-        instance.getChatListRef(SPUtil.getString(Constants.UserID, ""));
-        instance.setOnChatListDataChange(new ChatListDataChange() {
-            @Override
-            public void onChatListDataChange(List<ChatListBean> list) {
-                    chatlist.clear();
-                    chatlist.addAll(list);
-                    adapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    private void click(int position) {
-
-    }
-
-    @Override
-    public void initData() {
         chatlist = new ArrayList<ChatListBean>();
         adapter = new SessionListAdapter(context, chatlist);
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false);
@@ -70,6 +55,28 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
             @Override
             public void onRootItemclick(int position) {
                 click(position);
+            }
+        });
+
+    }
+
+    private void click(int position) {
+        Toast.makeText(context, "position:"+position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), SessionActivity.class);
+        intent.putExtra("chatinfo", chatlist.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void initData() {
+        RealTimeDb instance = RealTimeDb.getInstance(getActivity());
+        instance.getChatListRef(SPUtil.getString(Constants.UserID, ""));
+        instance.setOnChatListDataChange(new ChatListDataChange() {
+            @Override
+            public void onChatListDataChange(List<ChatListBean> list) {
+                chatlist.clear();
+                chatlist.addAll(list);
+                adapter.notifyDataSetChanged();
             }
         });
     }

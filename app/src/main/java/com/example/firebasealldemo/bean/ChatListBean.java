@@ -1,10 +1,12 @@
 package com.example.firebasealldemo.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by seeker on 2017/4/24.
  */
 
-public class ChatListBean {
+public class ChatListBean implements Serializable{
     public ChatListBean() {
     }
 

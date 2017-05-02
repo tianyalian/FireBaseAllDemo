@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.bean.ChatListBean;
+import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
 
 import java.util.ArrayList;
 
@@ -38,15 +39,15 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.
 
     @Override
     public int getItemCount() {
-        return 5;
+        return list.size();
     }
 
     public void initData(EditproductHolder holder, int position) {
-//        ChatListBean itemBean = list.get(position);
-//        holder.time.setText(itemBean.timestamp);
-//        holder.last_message.setText(itemBean.lastMessage);
-//        holder.friends_name.setText(itemBean.member);
-//        GlideImageLoader.getInstance(ctx).displayImage(itemBean.fridlogo,holder.header);
+        ChatListBean itemBean = list.get(position);
+        holder.time.setText(itemBean.timestamp);
+        holder.last_message.setText(itemBean.lastMessage);
+        holder.friends_name.setText(itemBean.member);
+        GlideImageLoader.getInstance(ctx).displayImage(itemBean.fridlogo,holder.header);
     }
 
     public class EditproductHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

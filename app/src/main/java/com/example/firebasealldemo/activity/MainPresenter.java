@@ -33,6 +33,7 @@ import static android.app.Activity.RESULT_OK;
 
 public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter {
     private String  base_path = Environment.getExternalStorageDirectory().getPath()+"/";
+    String userID = Constants.UserID;
     int MyrequestCode;
     @Override
     public void onMyActivityResult(Context context ,int requestCode, int resultCode, Intent data) {

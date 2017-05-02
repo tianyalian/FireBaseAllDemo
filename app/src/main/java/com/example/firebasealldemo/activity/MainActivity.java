@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.firebasealldemo.R;
+import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.fragment.chat.ChatFragment;
 import com.example.firebasealldemo.fragment.message.MessageFragment;
 import com.example.firebasealldemo.fragment.onlinedb.OnlineDbFragment;
@@ -63,6 +64,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 .hide(chat_fragment)
                 .hide(onlinedb_fragment)
                 .commit();
+        String userID = Constants.UserID;
     }
 
     @Override
