@@ -5,6 +5,9 @@ package com.example.firebasealldemo.bean;
  */
 
 public class SessionBean {
+    public SessionBean() {
+    }
+
     public String content,img_receive,img_send,name,timestamp;
     public boolean isReceive;
 

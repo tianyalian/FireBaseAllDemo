@@ -1,6 +1,7 @@
 package com.example.firebasealldemo.interf;
 
 import com.example.firebasealldemo.bean.SessionBean;
+import com.example.firebasealldemo.constant.Constants;
 
 import java.util.List;
 
@@ -9,5 +10,6 @@ import java.util.List;
  */
 
 public interface MessageDataChange {
+    String messages = Constants.Messages;
     void onMessageDataChange(List<SessionBean> value);
 }

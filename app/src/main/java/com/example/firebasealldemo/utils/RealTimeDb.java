@@ -132,6 +132,7 @@ public class RealTimeDb {
      * @return
      */
     public DatabaseReference getMessageRef(String messageid) {
+        String messages = Constants.Messages;
         DatabaseReference dbRef = database.getReference(Constants.Messages).child(messageid);
         dbRef.addValueEventListener(valueEventListener);
         return dbRef;

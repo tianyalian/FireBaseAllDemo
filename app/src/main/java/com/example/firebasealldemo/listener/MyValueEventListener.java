@@ -68,7 +68,7 @@ public class  MyValueEventListener implements ValueEventListener {
             dataChangelistener.onDataChange(dataSnapshot.getValue(User.class));
         }
         //会话内容回调
-        if (callback.contains(Constants.Messages) && messageDataChange != null) {
+        if (callback.contains("message") && messageDataChange != null) {
             GenericTypeIndicator<List<SessionBean>> t = new GenericTypeIndicator<List<SessionBean>>() {};
             List<SessionBean> value = dataSnapshot.getValue(t);
             messageDataChange.onMessageDataChange(value);
