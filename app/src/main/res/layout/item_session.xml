@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:maxWidth="230dp"
         android:gravity="center"
+        android:layout_marginTop="8dp"
         android:background="@drawable/img_file_receive"
         android:text="妖妖灵" />
     <com.example.firebasealldemo.view.CircleImageView
@@ -31,6 +32,7 @@
         android:layout_toLeftOf="@id/iv_send"
         android:background="@drawable/img_bubble_send"
         android:gravity="center"
+        android:layout_marginTop="8dp"
         android:maxWidth="230dp"
         android:text="黄河黄河我是长江黄" />
 

@@ -14,7 +14,7 @@ import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.interf.UserDataChange;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
 import com.example.firebasealldemo.mvp.BasePresenterImpl;
-import com.example.firebasealldemo.utils.HttpUtil;
+import com.example.firebasealldemo.utils.StorageUtil;
 import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.GlideImageLoader;
 import com.example.firebasealldemo.utils.imageUtil.SPUtil;
@@ -88,12 +88,13 @@ public  class MainPresenter  extends BasePresenterImpl<MainContract.View> implem
 
 
     private void refReshHeader(final Context context , final ImageView imageView) {
-        StorageReference storageRef = HttpUtil.getInstance().getStorageRef(Constants.header_refence);
-        HttpUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
+        StorageReference storageRef = StorageUtil.getInstance().getStorageRef(Constants.header_refence);
+        StorageUtil.getInstance().getUrlFromRef(storageRef,new UploadListenerImpl(){
             @Override
             public void onSuccess(Uri uri) {
                 super.onSuccess(uri);
                 reFreshHeader(uri.toString(),context,imageView);
+                SPUtil.put(context, Constants.logo,uri.toString());
             }
         });
     }

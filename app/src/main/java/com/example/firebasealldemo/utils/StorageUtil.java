@@ -20,15 +20,15 @@ import java.io.InputStream;
  * Created by seeker on 2017/4/20.
  */
 
-public class HttpUtil {
-  private static HttpUtil httpUtil = null;
+public class StorageUtil {
+  private static StorageUtil httpUtil = null;
     private static StorageReference storageRef;
 
     /**
      * "image/header.jpg"
      * @param refence 上传文件夹的位置和文件名
      */
-    public HttpUtil upLoadFile(String refence){
+    public StorageUtil upLoadFile(String refence){
     StorageReference headerImagesRef = storageRef.child(refence);
         try {
         InputStream stream = new FileInputStream(new File(Constants.header_compressed));
@@ -63,7 +63,7 @@ public class HttpUtil {
      * @param filePath 存储文件的位置
      * @return
      */
-    public HttpUtil downLoadFile(String refence,String filePath) {
+    public StorageUtil downLoadFile(String refence, String filePath) {
         StorageReference fielRef = storageRef.child(refence);
         File file =new File(filePath);
         fielRef.getFile(file).addOnFailureListener(new OnFailureListener() {
@@ -86,11 +86,11 @@ public class HttpUtil {
     }
 
 
-    public  static  HttpUtil getInstance() {
+    public  static StorageUtil getInstance() {
         if (httpUtil == null) {
             synchronized ("1") {
                 if (httpUtil == null) {
-                    httpUtil = new HttpUtil();
+                    httpUtil = new StorageUtil();
                     //访问存储段的第一步是创建一个 FirebaseStorage 实例
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     // Points to the root reference
@@ -135,6 +135,18 @@ public class HttpUtil {
                 // Handle any errors
                 if (listener != null) {
                     listener.onFailure(exception);
+                }
+            }
+        });
+    }
+
+    public void getUrlFromUserId(String userId,final UpLoadListener listener) {
+        this.listener = listener;
+        storageRef.child(Constants.image + userId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                if (listener != null) {
+                    listener.onSuccess(uri);
                 }
             }
         });

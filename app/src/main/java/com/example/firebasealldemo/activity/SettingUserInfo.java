@@ -18,7 +18,7 @@ import com.example.firebasealldemo.constant.Constants;
 import com.example.firebasealldemo.R;
 import com.example.firebasealldemo.bean.User;
 import com.example.firebasealldemo.listener.UploadListenerImpl;
-import com.example.firebasealldemo.utils.HttpUtil;
+import com.example.firebasealldemo.utils.StorageUtil;
 import com.example.firebasealldemo.utils.RealTimeDb;
 import com.example.firebasealldemo.utils.imageUtil.SPUtil;
 import com.google.firebase.storage.UploadTask;
@@ -171,7 +171,7 @@ public class SettingUserInfo extends AppCompatActivity implements View.OnClickLi
      * 上传图片
      */
     private void uploadPic() {
-        HttpUtil.getInstance()
+        StorageUtil.getInstance()
                 .upLoadFile(Constants.header_refence)
                 .setUpLoadListener(new UploadListenerImpl() {
                     @Override

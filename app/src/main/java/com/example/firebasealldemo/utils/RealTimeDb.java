@@ -1,7 +1,6 @@
 package com.example.firebasealldemo.utils;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.firebasealldemo.bean.ChatListBean;
 import com.example.firebasealldemo.bean.SessionBean;
@@ -11,13 +10,12 @@ import com.example.firebasealldemo.interf.ChatListDataChange;
 import com.example.firebasealldemo.interf.MessageDataChange;
 import com.example.firebasealldemo.interf.UserDataChange;
 import com.example.firebasealldemo.listener.MyValueEventListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by seeker on 2017/4/21.
@@ -140,43 +138,45 @@ public class RealTimeDb {
 
     /**
      * 更新会话信息
-     * @param username
-     * @param content
+     * @param messageid
      */
-    public void updataSession(String username, String content) {
-        DatabaseReference reference = database.getReference(Constants.Messages).child(username);
-        ArrayList<SessionBean> list= new ArrayList<>();
-        SessionBean sessionBean = new SessionBean("hellow "+username+"!", "", "", "ake", System.currentTimeMillis() + "");
-        SessionBean sessionBean1 = new SessionBean("hellow ake!", "", "", username, System.currentTimeMillis() + "");
-        list.add(sessionBean);
-        list.add(sessionBean1);
-        reference.setValue(list);
-        reference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(ctx, "添加成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    public void updataSession(String messageid,  SessionBean sessionBean,int position) {
+        DatabaseReference  reference=  getMessageRef(messageid);
+//        ArrayList<SessionBean> list= new ArrayList<>();
+//        SessionBean sessionBean = new SessionBean("hellow "+messageid+"!", "", "", "ake", System.currentTimeMillis() + "");
+//        SessionBean sessionBean1 = new SessionBean("hellow ake!", "", "", messageid, System.currentTimeMillis() + "");
+//        list.add(sessionBean);
+//        list.add(sessionBean1);
+//        reference.setValue(sessionBean);
+        Map<String, Object> map = new HashMap<>();
+        map.put(position+"", sessionBean);
+        reference.updateChildren(map);
+//        reference.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Toast.makeText(ctx, "添加成功", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     public void updataChatList(String username){

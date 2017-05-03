@@ -28,7 +28,9 @@ public class Constants {
                                 ,UserID="userId"
                                 ,messageid="123456789"
                                 , sp = "sp"
+                                ,content="content://notify"
                                 ,UserCount="userCount"
+                                ,image="imaes/"
                                 ,header_compressed= root_sdCard +"0.jpg";
 
 

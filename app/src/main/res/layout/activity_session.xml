@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray5"
     android:layout_height="match_parent">
 
-    <!--底层：内容功能区-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray5"
-        android:orientation="vertical">
+
 
 
         <android.support.v7.widget.RecyclerView
@@ -94,38 +91,7 @@
                    />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/flBottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible">
-
-
-
-                <!--功能区-->
-                <LinearLayout
-                    android:id="@+id/llButtomFunc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View style="@style/Line1" />
-
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/vpFunc"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-
         </LinearLayout>
-    </LinearLayout>
-
-    <!--中层：录音图片动画-->
-
 
     <!--顶层：视频录像-->
-</RelativeLayout>
+</LinearLayout>

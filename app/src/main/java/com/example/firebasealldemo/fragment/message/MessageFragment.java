@@ -74,9 +74,11 @@ public class MessageFragment extends MVPBaseFragment<MessageContract.View, Messa
         instance.setOnChatListDataChange(new ChatListDataChange() {
             @Override
             public void onChatListDataChange(List<ChatListBean> list) {
+                if (chatlist != null && list!=null) {
                 chatlist.clear();
                 chatlist.addAll(list);
                 adapter.notifyDataSetChanged();
+                }
             }
         });
     }
