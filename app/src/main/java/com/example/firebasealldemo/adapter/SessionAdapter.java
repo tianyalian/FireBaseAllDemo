@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.EditproductHolder> {
     public static Context ctx;
     public static ArrayList<SessionBean> list;
+    public boolean isFirst = true;
 
     public SessionAdapter(Context ctx, ArrayList<SessionBean> list) {
         this.ctx = ctx;
@@ -40,7 +41,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.Editprod
 
     @Override
     public void onBindViewHolder(SessionAdapter.EditproductHolder holder, int position) {
-        initData(holder,position);
+        initData(holder, position);
     }
 
     @Override
@@ -53,7 +54,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.Editprod
         if (sessionBean.isReceive) {
             holder.iv_receive.setVisibility(View.VISIBLE);
             holder.iv_send.setVisibility(View.GONE);
+            if (isFirst) {
             GlideImageLoader.getInstance(ctx).displayImage(SessionActivity.friendsLogo, holder.iv_receive);
+
+            }
 //            GlideImageLoader.getInstance(ctx).displayImage(
 // "https://firebasestorage.googleapis.com/v0/b/fir-alldemo-6e7e0.appspot.com/o/imaes%2FJ72v7pA3VaSrqVGvzOJaO2uO3lI3.jpeg?alt=media&token=cbf45bd5-277b-4f9d-aff6-553f0cbeb4b7", holder.iv_receive);
             holder.tvReceive.setVisibility(View.VISIBLE);
@@ -62,7 +66,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.Editprod
         } else {
             holder.iv_receive.setVisibility(View.GONE);
             holder.iv_send.setVisibility(View.VISIBLE);
-            GlideImageLoader.getInstance(ctx).displayImage(SPUtil.getString("logo",""), holder.iv_send);
+            if (isFirst) {
+
+                GlideImageLoader.getInstance(ctx).displayImage(SPUtil.getString("logo", ""), holder.iv_send);
+            }
 //            GlideImageLoader.getInstance(ctx).displayImage("https://firebasestorage.googleapis.com/v0/b/fir-alldemo-6e7e0.appspot.com/o/imaes%2FJ72v7pA3VaSrqVGvzOJaO2uO3lI3.jpeg?alt=media&token=cbf45bd5-277b-4f9d-aff6-553f0cbeb4b7", holder.iv_send);
             holder.tvReceive.setVisibility(View.GONE);
             holder.tvSend.setVisibility(View.VISIBLE);
