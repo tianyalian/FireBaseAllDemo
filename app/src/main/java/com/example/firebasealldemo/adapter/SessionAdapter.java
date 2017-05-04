@@ -67,7 +67,6 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.Editprod
             holder.iv_receive.setVisibility(View.GONE);
             holder.iv_send.setVisibility(View.VISIBLE);
             if (isFirst) {
-
                 GlideImageLoader.getInstance(ctx).displayImage(SPUtil.getString("logo", ""), holder.iv_send);
             }
 //            GlideImageLoader.getInstance(ctx).displayImage("https://firebasestorage.googleapis.com/v0/b/fir-alldemo-6e7e0.appspot.com/o/imaes%2FJ72v7pA3VaSrqVGvzOJaO2uO3lI3.jpeg?alt=media&token=cbf45bd5-277b-4f9d-aff6-553f0cbeb4b7", holder.iv_send);
